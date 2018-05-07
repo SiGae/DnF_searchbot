@@ -20,5 +20,6 @@ from app import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('keyboard', views.keyboard)
+    path('keyboard', views.keyboard),
+    path('message', views.message)
 ]
