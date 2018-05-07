@@ -14,7 +14,7 @@ def SearchAuction(itemName, search_type) -> str:
         {
             'itemName': item_name,
             'wordType': search_type,
-            'limit': 10,
+            'limit': 5,
             'apikey': code.dnfAppKey
         }
     )
@@ -24,8 +24,13 @@ def SearchAuction(itemName, search_type) -> str:
         infoJSON = json.loads(urlOpen.read().decode('utf-8'))
 
         k = 0
+
+        b = len(infoJSON['rows'])
+        if len(infoJSON['rows']) > 5:
+            b = 5
+
         a = ''
-        while k < 10:
+        while k < b:
             a += '이름 : {}\n'.format(infoJSON['rows'][k]['itemName'])
             a += '개당 가격 : {}\n'.format(infoJSON['rows'][k]['unitPrice'])
             a += '총액 : {}\n'.format(infoJSON['rows'][k]['currentPrice'])
