@@ -26,6 +26,8 @@ def SearchAuction(itemName, search_type) -> str:
         k = 0
 
         b = len(infoJSON['rows'])
+        if b == 0:
+            return a = '해당 아이템이 존재하지 않습니다.\n검색 방법 변경을 원할시 채팅창에 \'검색\'을 입력 해주시길 바랍니다.'
         if len(infoJSON['rows']) > 5:
             b = 5
 
