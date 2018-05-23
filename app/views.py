@@ -41,7 +41,7 @@ def message(request):
         return JsonResponse(
             {
                 'message': {
-                    'text': '단어 검색이 선택 되었습니다. 아이템 이름을 입력해주세요.\n(복수 단어 입력시 마지막 단어로 검색이 됩니다.)'
+                    'text': '단어 검색이 선택 되었습니다. 아이템 이름을 입력해주세요.\n(\'-\', \':\'등 특수문자가 들어간 경우 검색이 정상적으로 되지 않습니다.)'
                 },
                 'keyboard': {
                     'type': 'text'
@@ -73,7 +73,7 @@ def message(request):
             }
         )
 
-    if type_name == 'text' and search_type != "":
+    if type_name == 'text':
         return JsonResponse(
             {
                 'message': {
