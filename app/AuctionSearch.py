@@ -38,7 +38,7 @@ def SearchAuction(itemName, search_type) -> str:
 
         while k < i:
             a += '이름 : {}\n'.format(infoJSON['rows'][k]['itemName'])
-            a += '개당 가격 : {}\n'.format(infoJSON['rows'][k]['unitPrice'])
+            a += '개당 가격 : {}\n'.format(format(infoJSON['rows'][k]['unitPrice'],","))
             a += '총액 : {}\n'.format(infoJSON['rows'][k]['currentPrice'])
             a += '수량 : {}\n'.format(infoJSON['rows'][k]['count'])
             a += '\n'
