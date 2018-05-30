@@ -4,6 +4,8 @@ import urllib.parse
 import ssl
 import app.bot_private as code
 
+def NumberSlice(number) -> str:
+    return format(number, ",")
 
 def SearchAuction(itemName, search_type) -> str:
     item_name = itemName
@@ -23,6 +25,7 @@ def SearchAuction(itemName, search_type) -> str:
 
         ssl._create_default_https_context = ssl._create_unverified_context
         urlOpen = urllib.request.urlopen(request_url + param)
+        print(request_url+param)
         infoJSON = json.loads(urlOpen.read().decode('utf-8'))
 
         k = 0
@@ -37,22 +40,29 @@ def SearchAuction(itemName, search_type) -> str:
             return a
         else:
             i = 10
+
         if infoJSON['rows'][0]['unitPrice']==0:
             while k < 5:
-                if infoJSON['row'][k]['unitPrice']==0:
+                if infoJSON['rows'][k]['unitPrice']==0:
                     k +=1
-                    if check:
+                    if check == True:
                         i += 1
+                else:
+                    break
 
         while k < i:
             a += '이름 : {}\n'.format(infoJSON['rows'][k]['itemName'])
-            a += '개당 가격 : {}\n'.format(format(infoJSON['rows'][k]['unitPrice'],","))
-            a += '총액 : {}\n'.format(infoJSON['rows'][k]['currentPrice'])
-            a += '수량 : {}\n'.format(infoJSON['rows'][k]['count'])
+            a += '개당 가격 : {}\n'.format(NumberSlice(infoJSON['rows'][k]['unitPrice']))
+            a += '총액 : {}\n'.format(NumberSlice(infoJSON['rows'][k]['currentPrice']))
+            a += '수량 : {}\n'.format(NumberSlice(infoJSON['rows'][k]['count']))
             a += '\n'
             k += 1
         a += '검색 방법 변경을 원할시 채팅창에 \'검색\'을 입력 해주시길 바랍니다.'
 
-    except:
-        a = '해당 아이템이 존재하지 않습니다.\n검색 방법 변경을 원할시 채팅창에 \'검색\'을 입력 해주시길 바랍니다.'
+    except Exception as ee:
+        print(ee)
+        a = '3해당 아이템이 존재하지 않습니다.\n검색 방법 변경을 원할시 채팅창에 \'검색\'을 입력 해주시길 바랍니다.'
     return a
+
+#a = input("입력 : ")
+#print(SearchAuction(a, 'full'))
