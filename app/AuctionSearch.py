@@ -28,20 +28,21 @@ def SearchAuction(itemName, search_type) -> str:
         k = 0
         i = 10
         a = ''
-        check = False
+        check = True
         if len(infoJSON['rows']) < 10:
             i = len(infoJSON['rows'])
-            check = True
+            check = False
         elif len(infoJSON['rows']) == 0:
             a = '해당 아이템이 존재하지 않습니다.\n검색 방법 변경을 원할시 채팅창에 \'검색\'을 입력 해주시길 바랍니다.'
             return a
         else:
             i = 10
-        while k < 5:
-            if infoJSON['rows'][k]['unitPrice']==0:
-                k +=1
-                if not check :
-                    i += 1
+        if infoJSON['rows'][0]['unitPrice']==0:
+            while k < 5:
+                if infoJSON['row'][k]['unitPrice']==0:
+                    k +=1
+                    if check:
+                        i += 1
 
         while k < i:
             a += '이름 : {}\n'.format(infoJSON['rows'][k]['itemName'])
