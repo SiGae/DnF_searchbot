@@ -9,7 +9,7 @@ def NumberSlice(number) -> str:
 
 def SearchAuction(itemName, search_type) -> str:
     item_name = itemName
-    if search_type == 'full':
+    if search_type == 'full' and " " in item_name:
         item_name = "\'" + item_name + "\'"
     request_url = 'https://api.neople.co.kr/df/auction?sort=unitPrice:asc&'
     param = urllib.parse.urlencode(
@@ -20,7 +20,7 @@ def SearchAuction(itemName, search_type) -> str:
             'apikey': code.dnfAppKey
         }
     )
-    param = param.replace("%27", "\"")
+    param = param.replace("+", "%20").replace("%27", "\"")
     try:
 
         ssl._create_default_https_context = ssl._create_unverified_context
